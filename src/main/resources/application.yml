@@ -1,1 +1,9 @@
-
+# Postgres connection
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/finalfantasy
+    username: postgres
+    password: password
+  output:
+    ansi:
+      enabled: ALWAYS
