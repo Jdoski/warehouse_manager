@@ -28,18 +28,8 @@ public class Item {
     @Column
     private int cost;
 
-    @Column
-    private ArrayList<String> stats; 
-
     public Item() {
 
-    }
-
-    public Item(String name, int type, int cost, ArrayList<String> stats) {
-        this.name = name;
-        this.type = type;
-        this.cost = cost;
-        this.stats = stats;
     }
 
     public Item(String name, int type, int cost) {
@@ -48,19 +38,12 @@ public class Item {
         this.cost = cost;
     }
 
-    public Item(int id, String name, int type, int cost, ArrayList<String> stats) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.cost = cost;
-        this.stats = stats;
-    }
-
     public Item(int id, String name, int type, int cost) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.cost = cost;
+    
     }
 
     public int getId() {
@@ -95,14 +78,6 @@ public class Item {
         this.cost = cost;
     }
 
-    public ArrayList<String> getStats() {
-        return stats;
-    }
-
-    public void setStats(ArrayList<String> stats) {
-        this.stats = stats;
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -111,7 +86,6 @@ public class Item {
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + type;
         result = prime * result + cost;
-        result = prime * result + ((stats == null) ? 0 : stats.hashCode());
         return result;
     }
 
@@ -135,17 +109,12 @@ public class Item {
             return false;
         if (cost != other.cost)
             return false;
-        if (stats == null) {
-            if (other.stats != null)
-                return false;
-        } else if (!stats.equals(other.stats))
-            return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "Item [id=" + id + ", name=" + name + ", type=" + type + ", cost=" + cost + ", stats=" + stats + "]";
+        return "Item [id=" + id + ", name=" + name + ", type=" + type + ", cost=" + cost + ", stats=";
     }
 
     
