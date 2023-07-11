@@ -34,7 +34,7 @@ public class WarehouseService {
     }
 
     //basic update functionality to change the number of items allowed
-    public int updateWarehouse(Warehouse warehouse, int max_items){
+    public int updateWarehouseCapacity(Warehouse warehouse, int max_items){
         return warehouseRepository.updateWarehouseCapacity(warehouse.getId(), max_items);
     }
 
