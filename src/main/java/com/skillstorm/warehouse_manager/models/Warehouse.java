@@ -1,4 +1,5 @@
 package com.skillstorm.warehouse_manager.models;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +22,9 @@ public class Warehouse {
 
     @Column
     private int max_items;
+
+    @Column
+    private Set<Item> items;
 
     public Warehouse() {
 
@@ -59,6 +63,13 @@ public class Warehouse {
 
     public void setMax_items(int max_items) {
         this.max_items = max_items;
+    }
+
+    public Set<Item> get_items(){
+        return items;
+    }
+    public void setItems(Set<Item> items){
+        this.items = items;
     }
 
     @Override

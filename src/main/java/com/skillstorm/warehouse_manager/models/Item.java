@@ -1,6 +1,6 @@
 package com.skillstorm.warehouse_manager.models;
 
-import java.util.ArrayList;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,26 +23,38 @@ public class Item {
     private String name;
 
     @Column
-    private int type;
+    private String type;
 
     @Column
     private int cost;
+
+    @Column
+    private Set<Warehouse> warehouses;
 
     public Item() {
 
     }
 
-    public Item(String name, int type, int cost) {
+    public Item(String name, String type, int cost) {
         this.name = name;
         this.type = type;
         this.cost = cost;
     }
 
-    public Item(int id, String name, int type, int cost) {
+    public Item(int id, String name, String type, int cost) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.cost = cost;
+    
+    }
+
+    public Item(int id, String name, String type, int cost, Set<Warehouse> warehouses) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.cost = cost;
+        this.warehouses = warehouses;
     
     }
 
@@ -62,11 +74,11 @@ public class Item {
         this.name = name;
     }
 
-    public int getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -78,13 +90,21 @@ public class Item {
         this.cost = cost;
     }
 
+      public Set<Warehouse> getWarehouses() {
+        return warehouses;
+    }
+
+    public void setWarehouses(Set<Warehouse> warehouses) {
+        this.warehouses = warehouses;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + id;
         result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + type;
+        result = prime * result + ((type == null) ? 0 : type.hashCode());
         result = prime * result + cost;
         return result;
     }
@@ -116,6 +136,8 @@ public class Item {
     public String toString() {
         return "Item [id=" + id + ", name=" + name + ", type=" + type + ", cost=" + cost + ", stats=";
     }
+
+  
 
     
 
