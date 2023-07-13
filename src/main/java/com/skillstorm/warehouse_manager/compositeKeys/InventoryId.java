@@ -12,7 +12,15 @@ public class InventoryId implements Serializable {
 
     @Column(name="item_id")
     private int item_id;
+
     
+    public InventoryId(int warehouse_id) {
+        this.warehouse_id = warehouse_id;
+    }
+
+    public InventoryId() {
+    }
+
     public InventoryId(int warehouse_id, int item_id) {
         this.warehouse_id = warehouse_id;
         this.item_id = item_id;

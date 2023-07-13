@@ -28,18 +28,21 @@ public class Inventory {
     @JoinColumn(name = "item_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Item item;
 
-    public Inventory(InventoryId id, int item_id, int warehouse_id, int quantity) {
-        this.id = id;
-        this.quantity = quantity;
-    }
-
-    public Inventory(int item_id, int warehouse_id, int quantity) {
-        this.quantity = quantity;
-    }
-
     public Inventory() {
     }
 
+    public Inventory(InventoryId id, int quantity, Warehouse warehouse, Item item) {
+        this.id = id;
+        this.quantity = quantity;
+        this.warehouse = warehouse;
+        this.item = item;
+    }
+
+    public Inventory(int quantity, Warehouse warehouse, Item item) {
+        this.quantity = quantity;
+        this.warehouse = warehouse;
+        this.item = item;
+    }
 
     public InventoryId getId() {
         return id;
@@ -47,6 +50,14 @@ public class Inventory {
 
     public void setId(InventoryId id) {
         this.id = id;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public Warehouse getWarehouse() {
@@ -63,14 +74,6 @@ public class Inventory {
 
     public void setItem(Item item) {
         this.item = item;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     @Override
@@ -115,10 +118,10 @@ public class Inventory {
 
     @Override
     public String toString() {
-        return "Inventory [id=" + id + " " + ", quantity="
-                + quantity + "]";
+        return "Inventory [id=" + id + ", quantity=" + quantity + ", warehouse=" + warehouse + ", item=" + item + "]";
     }
 
+    
     
     
 }
