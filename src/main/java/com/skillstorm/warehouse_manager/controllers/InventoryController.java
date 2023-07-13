@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skillstorm.warehouse_manager.models.Inventory;
@@ -21,7 +22,7 @@ import com.skillstorm.warehouse_manager.services.InventoryService;
 
 @RestController
 @RequestMapping("/inventories")
-@CrossOrigin("http://127.0.0.1:5500")
+@CrossOrigin
 public class InventoryController {
 
     @Autowired
@@ -38,9 +39,9 @@ public class InventoryController {
         return new ResponseEntity<List<Inventory>>(inventories, HttpStatus.OK);
     }
     // Getting a single inventory by the id
-    @GetMapping("/inventory/{id}")
-    public ResponseEntity<Inventory> findInventoryById(@PathVariable int id){
-        Inventory inventory = inventoryService.findInventoryById(id);
+    @GetMapping("/inventory/{warehouseId}{itemId}")
+    public ResponseEntity<Inventory> findInventoryById(@PathVariable int warehouseId, @PathVariable int itemId){
+        Inventory inventory = inventoryService.findInventoryById(warehouseId,itemId);
         return new ResponseEntity<Inventory>(inventory,HttpStatus.OK);
     }
     // Default adding new inventory endpoint
@@ -50,22 +51,29 @@ public class InventoryController {
         Inventory newInventory = inventoryService.saveInventory(inventory);
         return new ResponseEntity<Inventory>(newInventory, HttpStatus.CREATED);
     }
-    // TODO LATER update an inventory
-    // @PutMapping("/inventory/updateCapacity")
-    // public ResponseEntity<Integer> updateWarehouseCapacity(@RequestBody Warehouse warehouse, @RequestParam int newCapacity){
-        
-    //     int updated = warehouseService.updateWarehouseCapacity(warehouse, newCapacity);
-    //     return new ResponseEntity<Integer>(updated, HttpStatus.OK);
     
-    // }
-
-    @DeleteMapping("inventory/{id}")
-    public ResponseEntity<HttpStatus> deleteInventory(@PathVariable("id") int id){
-        try{
-            inventoryRepository.deleteById(id);
-            return new ResponseEntity<HttpStatus>(HttpStatus.NO_CONTENT);
-        } catch (Exception e){
-            return new ResponseEntity<HttpStatus>(HttpStatus.INTERNAL_SERVER_ERROR);
+    @PutMapping("/{warehouseId}/{itemId}")
+    public ResponseEntity<String> updateQuantity(
+            @PathVariable("warehouseId") int warehouseId,
+            @PathVariable("itemId") int itemId,
+            @RequestParam("quantity") int quantity) {
+            
+        if (!inventoryService.productExists(warehouseId, itemId)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
         }
+        
+        inventoryService.updateProductQuantity(warehouseId, itemId, quantity);
+        
+        return ResponseEntity.ok("Quantity updated successfully");
     }
+
+    // @DeleteMapping("inventory/{warehouseId}{itemId}")
+    // public ResponseEntity<HttpStatus> deleteInventory(@PathVariable("warehouseId") int warehouseId, @PathVariable("itemId") int itemId){
+    //     try{
+    //         inventoryRepository.deleteById(warehouseId,itemId);
+    //         return new ResponseEntity<HttpStatus>(HttpStatus.NO_CONTENT);
+    //     } catch (Exception e){
+    //         return new ResponseEntity<HttpStatus>(HttpStatus.INTERNAL_SERVER_ERROR);
+    //     }
+    // }
 }
