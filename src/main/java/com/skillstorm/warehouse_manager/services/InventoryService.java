@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skillstorm.warehouse_manager.models.Inventory;
-import com.skillstorm.warehouse_manager.models.Item;
-import com.skillstorm.warehouse_manager.models.Warehouse;
 import com.skillstorm.warehouse_manager.repositories.InventoryRepository;
 
 @Service
