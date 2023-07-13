@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skillstorm.warehouse_manager.models.Inventory;
+import com.skillstorm.warehouse_manager.models.Item;
+import com.skillstorm.warehouse_manager.models.Warehouse;
 import com.skillstorm.warehouse_manager.repositories.InventoryRepository;
 
 @Service
@@ -14,6 +16,13 @@ public class InventoryService {
 
     @Autowired
     InventoryRepository inventoryRepository;
+
+    @Autowired
+    WarehouseService warehouseService;
+
+    @Autowired
+    ItemService itemService;
+    
 
     public List<Inventory> findAllInventories(){
         return inventoryRepository.findAll();

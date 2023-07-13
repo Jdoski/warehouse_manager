@@ -10,11 +10,15 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skillstorm.warehouse_manager.models.Inventory;
+import com.skillstorm.warehouse_manager.models.Item;
+import com.skillstorm.warehouse_manager.models.Warehouse;
 import com.skillstorm.warehouse_manager.repositories.InventoryRepository;
 import com.skillstorm.warehouse_manager.services.InventoryService;
 
@@ -44,11 +48,19 @@ public class InventoryController {
     }
     // Default adding new inventory endpoint
     @PostMapping("/inventory")
-    public ResponseEntity<Inventory> createInventory(@RequestBody Inventory inventory){
-
+    public ResponseEntity<Inventory> createInventory(@RequestBody Inventory inventory){    
+        
         Inventory newInventory = inventoryService.saveInventory(inventory);
         return new ResponseEntity<Inventory>(newInventory, HttpStatus.CREATED);
     }
+    // TODO LATER update an inventory
+    // @PutMapping("/inventory/updateCapacity")
+    // public ResponseEntity<Integer> updateWarehouseCapacity(@RequestBody Warehouse warehouse, @RequestParam int newCapacity){
+        
+    //     int updated = warehouseService.updateWarehouseCapacity(warehouse, newCapacity);
+    //     return new ResponseEntity<Integer>(updated, HttpStatus.OK);
+    
+    // }
 
     @DeleteMapping("inventory/{id}")
     public ResponseEntity<HttpStatus> deleteInventory(@PathVariable("id") int id){
