@@ -1,5 +1,6 @@
 package com.skillstorm.warehouse_manager.models;
 
+
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -7,11 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name = "Items")
+@Table(name = "items", schema = "public")
 public class Item {
 
     @Id
@@ -29,7 +30,12 @@ public class Item {
     private int cost;
 
     @Column
-    private Set<Warehouse> warehouses;
+    private int inventory_id;
+
+    // @ManyToOne
+    // @JoinColumn(name = "inventory_id")
+    @OneToMany(targetEntity = Inventory.class, mappedBy = "warehouse")
+    private Set<Inventory> inventory;
 
     public Item() {
 
@@ -49,14 +55,6 @@ public class Item {
     
     }
 
-    public Item(int id, String name, String type, int cost, Set<Warehouse> warehouses) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.cost = cost;
-        this.warehouses = warehouses;
-    
-    }
 
     public int getId() {
         return id;
@@ -90,13 +88,6 @@ public class Item {
         this.cost = cost;
     }
 
-      public Set<Warehouse> getWarehouses() {
-        return warehouses;
-    }
-
-    public void setWarehouses(Set<Warehouse> warehouses) {
-        this.warehouses = warehouses;
-    }
 
     @Override
     public int hashCode() {

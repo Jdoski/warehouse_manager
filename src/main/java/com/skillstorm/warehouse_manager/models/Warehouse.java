@@ -1,4 +1,5 @@
 package com.skillstorm.warehouse_manager.models;
+
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -6,10 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Warehouses")
+@Table(name = "warehouses", schema = "public")
 public class Warehouse {
 
     @Id
@@ -24,7 +26,10 @@ public class Warehouse {
     private int max_items;
 
     @Column
-    private Set<Item> items;
+    private int inventory_id;
+
+    @OneToMany(targetEntity = Inventory.class, mappedBy = "warehouse")
+    private Set<Inventory> inventory;
 
     public Warehouse() {
 
@@ -63,13 +68,6 @@ public class Warehouse {
 
     public void setMax_items(int max_items) {
         this.max_items = max_items;
-    }
-
-    public Set<Item> get_items(){
-        return items;
-    }
-    public void setItems(Set<Item> items){
-        this.items = items;
     }
 
     @Override
