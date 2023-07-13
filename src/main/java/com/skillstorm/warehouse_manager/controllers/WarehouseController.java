@@ -35,8 +35,8 @@ public class WarehouseController {
     @GetMapping
     public ResponseEntity<List<Warehouse>> findAllWarehouses(){
 
-        List<Warehouse> warhouses = warehouseService.findAllWarehouses();
-        return new ResponseEntity<List<Warehouse>>(warhouses, HttpStatus.OK);
+        List<Warehouse> warehouses = warehouseService.findAllWarehouses();
+        return new ResponseEntity<List<Warehouse>>(warehouses, HttpStatus.OK);
     }
     // Getting a single warehouse by the id
     @GetMapping("/warehouse/{id}")
