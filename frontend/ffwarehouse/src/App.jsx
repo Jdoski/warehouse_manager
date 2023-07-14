@@ -2,13 +2,47 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Warehouses from "./pages/Warehouses";
 import Items from "./pages/Items";
 import Inventories from "./pages/Inventories";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import Home from "./pages/Home";
 
 function App() {
+  const navItems = [
+    <>
+      <Link to="/">Home</Link>
+      <Link to="/warehouses">All Warehouses</Link>
+      <Link to="/items">All Items</Link>
+      <Link to="/inventories">All Inventories</Link>
+    </>,
+  ];
+
   return (
     <>
-      <Warehouses />
-      <Items />
-      <Inventories />
+      <Navbar bg="dark" data-bs-theme="dark">
+        <Container>
+          <Navbar.Brand href="/">Final Fantasy</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link href="/">Home</Nav.Link>
+              <Nav.Link href="/warehouses">Warehouses</Nav.Link>
+              <Nav.Link href="/items">Items</Nav.Link>
+              <Nav.Link href="/inventories">Inventories</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+
+      <BrowserRouter basename="/">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/warehouses" element={<Warehouses />}></Route>
+          <Route path="/items" element={<Items />}></Route>
+          <Route path="/inventories" element={<Inventories />}></Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
