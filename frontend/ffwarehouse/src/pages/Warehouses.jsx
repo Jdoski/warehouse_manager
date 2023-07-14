@@ -7,7 +7,7 @@ import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
-export default function Warehouses({ getWarehouses }) {
+export default function Warehouses() {
   const url = "http://localhost:8080/warehouses";
 
   // state for our list of Warehouses
@@ -34,9 +34,6 @@ export default function Warehouses({ getWarehouses }) {
       return [...oldState, newWarehouse];
     });
   }
-  function getWarehouses() {
-    return warehouse;
-  }
 
   return (
     <>
@@ -60,7 +57,7 @@ export default function Warehouses({ getWarehouses }) {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Create Warehouse</Modal.Title>
         </Modal.Header>
         <WarehousesForm
           handleNewWarehouse={handleNewWarehouse}

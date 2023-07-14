@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,19 +45,27 @@ public class WarehouseController {
         Warehouse warehouse = warehouseService.findWarehouseById(id);
         return new ResponseEntity<Warehouse>(warehouse,HttpStatus.OK);
     }
-    // Default adding new warehouse endpoint
+    //Default adding new warehouse endpoint
     @PostMapping("/warehouse")
     public ResponseEntity<Warehouse> createWarehouse(@RequestBody Warehouse warehouse){
 
-        Warehouse newWarehouse = warehouseService.saveWarehouse(warehouse);
+        Warehouse newWarehouse = warehouseService.createWarehouse(warehouse);
         return new ResponseEntity<Warehouse>(newWarehouse, HttpStatus.CREATED);
     }
 
-    @PutMapping("/warehouse/updateCapacity")
-    public ResponseEntity<Integer> updateWarehouseCapacity(@RequestBody Warehouse warehouse, @RequestParam int newCapacity){
+    @PutMapping("/warehouse/updateWarehouse/{id}/{max_items}/{location}")
+    public ResponseEntity<Warehouse> updateWarehouse(
+        @PathVariable("id") int id,
+        @PathVariable("max_items") int max_items, 
+        @PathVariable("location") String location){
+
+        if(warehouseService.findWarehouseById(id) != null){
+            warehouseService.updateWarehouse(id, max_items, location);
+            return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(warehouseService.findWarehouseById(id));
+        }
         
-        int updated = warehouseService.updateWarehouseCapacity(warehouse, newCapacity);
-        return new ResponseEntity<Integer>(updated, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).contentType(MediaType.APPLICATION_JSON).body(warehouseService.findWarehouseById(id));
+        
     
     }
 

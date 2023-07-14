@@ -40,7 +40,7 @@ export default function Inventories() {
       <Container>
         <Row>
           <Col>
-            <h1 className="text-centered">All Invetories</h1>
+            <h1 className="text-centered">All Inventories</h1>
           </Col>
           <Col>
             <Button variant="primary" onClick={handleShow}>

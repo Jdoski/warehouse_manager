@@ -53,33 +53,33 @@ public class InventoryController {
         return new ResponseEntity<Inventory>(newInventory, HttpStatus.CREATED);
     }
     
-    @PostMapping("/inventory/{warehouseId}/{itemId}")
+    @PostMapping("/inventory/{warehouse_id}/{item_id}")
     public ResponseEntity<String> createOrUpdateInventory(
-            @PathVariable("warehouseId") int warehouseId,
-            @PathVariable("itemId") int itemId,
+            @PathVariable("warehouse_id") int warehouse_id,
+            @PathVariable("item_id") int item_id,
             @RequestParam("quantity") int quantity) {
             
-        if (inventoryService.productExists(warehouseId, itemId)) {
+        if (inventoryService.productExists(warehouse_id, item_id)) {
             // Inventory exists, perform a PUT request to update the quantity
-            inventoryService.updateProductQuantity(warehouseId, itemId, quantity);
+            inventoryService.updateProductQuantity(warehouse_id, item_id, quantity);
             return ResponseEntity.ok("Quantity updated successfully");
         } else {
             // Inventory doesn't exist, create a new entry
-            inventoryService.createInventory(warehouseId, itemId, quantity);
+            inventoryService.createInventory(warehouse_id, item_id, quantity);
             return ResponseEntity.ok("Inventory created successfully");
         }
     }
-    @PutMapping("/{warehouseId}/{itemId}")
+    @PutMapping("/{warehouse_id}/{item_Id}")
     public ResponseEntity<String> updateQuantity(
-            @PathVariable("warehouseId") int warehouseId,
-            @PathVariable("itemId") int itemId,
+            @PathVariable("warehouse_id") int warehouse_id,
+            @PathVariable("item_id") int item_id,
             @RequestParam("quantity") int quantity) {
             
-        if (!inventoryService.productExists(warehouseId, itemId)) {
+        if (!inventoryService.productExists(warehouse_id, item_id)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
         }
         
-        inventoryService.updateProductQuantity(warehouseId, itemId, quantity);
+        inventoryService.updateProductQuantity(warehouse_id, item_id, quantity);
         
         return ResponseEntity.ok("Quantity updated successfully");
     }

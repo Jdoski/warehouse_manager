@@ -9,15 +9,6 @@ import Navbar from "react-bootstrap/Navbar";
 import Home from "./pages/Home";
 
 function App() {
-  const navItems = [
-    <>
-      <Link to="/">Home</Link>
-      <Link to="/warehouses">All Warehouses</Link>
-      <Link to="/items">All Items</Link>
-      <Link to="/inventories">All Inventories</Link>
-    </>,
-  ];
-
   return (
     <>
       <Navbar bg="dark" data-bs-theme="dark">
