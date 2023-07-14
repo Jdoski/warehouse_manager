@@ -17,11 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skillstorm.warehouse_manager.compositeKeys.InventoryId;
 import com.skillstorm.warehouse_manager.models.Item;
-import com.skillstorm.warehouse_manager.repositories.InventoryRepository;
 import com.skillstorm.warehouse_manager.repositories.ItemRepository;
-import com.skillstorm.warehouse_manager.services.InventoryService;
 import com.skillstorm.warehouse_manager.services.ItemService;
 
 
@@ -66,8 +63,8 @@ public class ItemController {
         return new ResponseEntity<Integer>(updated, HttpStatus.OK);
     
     }
-
-     @PutMapping("/item/updateItem/{id}/{name}/{type}/{cost}")
+    //PUT endoint to update the full Item, takes all params as path variables
+    @PutMapping("/item/updateItem/{id}/{name}/{type}/{cost}")
     public ResponseEntity<Item> updateWarehouse(
         @PathVariable("id") int id,
         @PathVariable("name") String name, 

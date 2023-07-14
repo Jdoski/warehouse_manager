@@ -56,12 +56,14 @@ public class InventoryController {
         return new ResponseEntity<Inventory>(newInventory, HttpStatus.CREATED);
     }
     
+    //POST endpoint that verifies if a warehouse exists, if it does update it if it doesnt create it
     @PostMapping("/inventory/{warehouse_id}/{item_id}")
     public ResponseEntity<String> createOrUpdateInventory(
             @PathVariable("warehouse_id") int warehouse_id,
             @PathVariable("item_id") int item_id,
             @RequestParam("quantity") int quantity) {
-            
+        
+        //checks to see if the inventory exists
         if (inventoryService.productExists(warehouse_id, item_id)) {
             // Inventory exists, perform a PUT request to update the quantity
             inventoryService.updateProductQuantity(warehouse_id, item_id, quantity);
@@ -72,16 +74,18 @@ public class InventoryController {
             return ResponseEntity.ok("Inventory created successfully");
         }
     }
+    //PUT endpoint to update an inventories quantity. 
     @PutMapping("/inventory/updateInventory/{warehouse_id}/{item_id}/{quantity}")
     public ResponseEntity<String> updateQuantity(
             @PathVariable("warehouse_id") int warehouse_id,
             @PathVariable("item_id") int item_id,
             @PathVariable("quantity") int quantity) {
-            
+        
+        //Check to see if the service exists
         if (!inventoryService.productExists(warehouse_id, item_id)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
         }
-        
+        //update quantity if exists
         inventoryService.updateProductQuantity(warehouse_id, item_id, quantity);
         
         return ResponseEntity.ok("Quantity updated successfully");

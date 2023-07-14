@@ -29,12 +29,13 @@ export default function Inventories() {
       .catch((error) => console.error(error));
   }, []); // need to add empty dependency list so it runs on mount only
 
+  //takes the old state and adds the new state on top and then returns it to the component to be displayed
   function handleNewInventory(newInvetory) {
     setInventory((oldState) => {
       return [...oldState, newInvetory];
     });
   }
-
+  //Layout for the Inventories page. contains the modal to create an Inventory
   return (
     <>
       <Container>
@@ -57,7 +58,7 @@ export default function Inventories() {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Create Inventory</Modal.Title>
         </Modal.Header>
         <InventoriesForm
           handleNewInventory={handleNewInventory}

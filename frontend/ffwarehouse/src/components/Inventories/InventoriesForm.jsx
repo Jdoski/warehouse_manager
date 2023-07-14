@@ -10,7 +10,6 @@ export default function InventoriesForm({ handleNewInventory }) {
 
     // will grab all of the data from our form
     const data = new FormData(event.target);
-    // creating Warehouse object
     const newInventory = {
       id: {
         warehouse_id: data.get("warehouse_id"),
@@ -28,7 +27,7 @@ export default function InventoriesForm({ handleNewInventory }) {
     })
       .then((data) => data.json())
       .then((returnedData) => {
-        // calling handleNewInventory from Warehouses.jsx to add the Warehouse to the table
+        // calling handleNewInventory from Inventories.jsx to add the Inventory to the table
         handleNewInventory(returnedData);
         //reloads the data to update the duplicate invetories quantity.
         window.location.reload();
@@ -37,7 +36,7 @@ export default function InventoriesForm({ handleNewInventory }) {
       })
       .catch((error) => console.error(error));
   }
-
+  //Form layout for the add inventory button
   return (
     <>
       <Form onSubmit={handleSubmit}>

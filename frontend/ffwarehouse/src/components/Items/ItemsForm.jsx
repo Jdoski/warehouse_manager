@@ -35,7 +35,7 @@ export default function ItemsForm({ handleNewItem }) {
       })
       .catch((error) => console.error(error));
   }
-
+  //form layout for the new items modal
   return (
     <>
       <Form onSubmit={handleSubmit}>

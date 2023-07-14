@@ -5,7 +5,6 @@ export default function WarehousesEditForm({ handleNewWarehouse }) {
   const url = "http://localhost:8080/warehouses";
 
   function handleSubmit(event) {
-    // preventing page refresh
     // will grab all of the data from our form
     const data = new FormData(event.target);
     console.log(data);
@@ -15,7 +14,7 @@ export default function WarehousesEditForm({ handleNewWarehouse }) {
       max_items: Number(data.get("max_items")),
       location: data.get("location"),
     };
-    // sending the post request
+    // sending the put request
     fetch(
       url +
         `/warehouse/updateWarehouse/${data.get("id")}/${data.get(
@@ -39,7 +38,7 @@ export default function WarehousesEditForm({ handleNewWarehouse }) {
       })
       .catch((error) => console.error(error));
   }
-
+  //Form for the edit modal.
   return (
     <>
       <Form onSubmit={handleSubmit}>

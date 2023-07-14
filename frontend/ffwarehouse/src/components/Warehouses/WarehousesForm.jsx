@@ -34,7 +34,7 @@ export default function WarehousesForm({ handleNewWarehouse }) {
       })
       .catch((error) => console.error(error));
   }
-
+  //form for the new warehouse button
   return (
     <>
       <Form onSubmit={handleSubmit}>

@@ -2,11 +2,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Warehouses from "./pages/Warehouses";
 import Items from "./pages/Items";
 import Inventories from "./pages/Inventories";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
+//Navbar container with links to each page.
+//BrowserRouter used to handle the pages and routers
 function App() {
   return (
     <>

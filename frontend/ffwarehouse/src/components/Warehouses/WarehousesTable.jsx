@@ -15,6 +15,7 @@ export default function WarehousesTable({ tableData, handleNewWarehouse }) {
     max_items: "",
   });
 
+  //Gets the information from the Modal and populates the variables to be saved
   const handleEdit = (item) => {
     console.log(item);
     setEditedItem(item);
@@ -22,34 +23,9 @@ export default function WarehousesTable({ tableData, handleNewWarehouse }) {
     setShowModal(true);
   };
 
-  function handleSave(event) {
-    const data = new FormData(event.target);
-    const newWarehouse = {
-      location: data.get("location"),
-      max_items: data.get("max_items"),
-    };
-    // sending the post request
-    fetch(url + "/warehouse", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newWarehouse),
-    })
-      .then((data) => data.json())
-      .then((returnedData) => {
-        // calling handleNewWarehouse from Warehouses.jsx to add the Warehouse to the table
-        handleNewWarehouse(returnedData);
-
-        // resetting the form
-        event.target.reset();
-      })
-      .catch((error) => console.error(error));
-
-    setShowModal(false);
-  }
-  const handleDelete = (item_id) => {
-    fetch(url + `/warehouse/${item_id}`, {
+  //Recieves the warehouse ID from the event on the delete button which is used to specify which inventory is used to delete
+  const handleDelete = (warehouse_id) => {
+    fetch(url + `/warehouse/${warehouse_id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -72,6 +48,8 @@ export default function WarehousesTable({ tableData, handleNewWarehouse }) {
     setShowModal(false);
   };
 
+  //Displays the table as well as the modal for the edit button (defaulted to hidden)
+  //Modal sends the data to the Edit form
   return (
     <>
       <Table striped bordered className="bg-primary-lighter">

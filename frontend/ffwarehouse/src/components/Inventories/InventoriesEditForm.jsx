@@ -5,17 +5,16 @@ export default function InventoryEditForm({ handleNewInventory }) {
   const url = "http://localhost:8080/inventories";
 
   function handleSubmit(event) {
-    // preventing page refresh
     // will grab all of the data from our form
     const data = new FormData(event.target);
     console.log(data);
-    // creating Warehouse object
+
     const newInventory = {
       warehouse_id: data.get("warehouse_id"),
       item_id: data.get("item_id"),
       quantity: Number(data.get("quantity")),
     };
-    // sending the post request
+    // sending the put request with proper URL endpoint
     fetch(
       url +
         `/inventory/updateInventory/${data.get("warehouse_id")}/${data.get(
@@ -31,15 +30,13 @@ export default function InventoryEditForm({ handleNewInventory }) {
     )
       .then((data) => data.json())
       .then((returnedData) => {
-        // calling handleUpdateWarehouse from Warehouses.jsx to add the Warehouse to the table
         handleNewInventory(returnedData);
-
         // resetting the form
         event.target.reset();
       })
       .catch((error) => console.error(error));
   }
-
+  // layout for the form in the modal for the edit form
   return (
     <>
       <Form onSubmit={handleSubmit}>

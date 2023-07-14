@@ -46,8 +46,4 @@ public class WarehouseService {
             ResponseEntity.badRequest();
         }
     }
-
-    // public int updateWarehouse(int warehouse_id, int max_items, String location) {
-    //     return warehouseRepository.updateWarehouse(warehouse_id, max_items, location);
-    // }
 }

@@ -6,10 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.skillstorm.warehouse_manager.models.Item;
-import com.skillstorm.warehouse_manager.models.Warehouse;
 import com.skillstorm.warehouse_manager.repositories.ItemRepository;
 
 @Service
@@ -35,6 +33,7 @@ public class ItemService {
         return itemRepository.save(item);
     }
 
+    //handles updating the item and saving it back into the database
     public void updateItem(int id, String name, String type, int cost){
         Optional<Item> optionalItem = itemRepository.findById(id);
 

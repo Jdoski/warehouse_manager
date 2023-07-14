@@ -28,6 +28,7 @@ public class Warehouse {
     @Column
     private int inventory_id;
 
+    //FK connection to the inventory
     @OneToMany(targetEntity = Inventory.class, mappedBy = "warehouse")
     private Set<Inventory> inventory;
 

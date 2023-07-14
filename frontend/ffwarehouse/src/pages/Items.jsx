@@ -29,12 +29,13 @@ export default function Items() {
       .catch((error) => console.error(error));
   }, []); // need to add empty dependency list so it runs on mount only
 
+  //takes the old state and adds the new state on top and then returns it to the component to be displayed
   function handleNewItem(newItem) {
     setItem((oldState) => {
       return [...oldState, newItem];
     });
   }
-
+  //Creates the items page, contains the modal for the new item creation
   return (
     <>
       <Container>
@@ -57,7 +58,7 @@ export default function Items() {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Create Item</Modal.Title>
         </Modal.Header>
         <ItemsForm handleNewItem={handleNewItem}></ItemsForm>
         <Modal.Footer>

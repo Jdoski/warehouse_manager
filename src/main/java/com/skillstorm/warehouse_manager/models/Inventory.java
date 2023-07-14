@@ -13,17 +13,17 @@ import com.skillstorm.warehouse_manager.compositeKeys.InventoryId;
 @Entity
 @Table(name="inventories", schema="public")
 public class Inventory {
-
+    //Composite Key combining warehouse_id and item_id
     @EmbeddedId
     private InventoryId id;
 
     @Column
     private int quantity;
-
+    //FK connection to the warehouse
     @ManyToOne
     @JoinColumn(name = "warehouse_id", referencedColumnName ="id", insertable=false, updatable = false)
     private Warehouse warehouse;
-
+    //FK connection to the item
     @ManyToOne
     @JoinColumn(name = "item_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Item item;

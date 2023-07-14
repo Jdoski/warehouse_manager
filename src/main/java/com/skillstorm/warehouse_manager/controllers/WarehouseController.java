@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skillstorm.warehouse_manager.models.Warehouse;
@@ -52,7 +51,7 @@ public class WarehouseController {
         Warehouse newWarehouse = warehouseService.createWarehouse(warehouse);
         return new ResponseEntity<Warehouse>(newWarehouse, HttpStatus.CREATED);
     }
-
+    //PUT endoint to update the warehouse on the frontend
     @PutMapping("/warehouse/updateWarehouse/{id}/{max_items}/{location}")
     public ResponseEntity<Warehouse> updateWarehouse(
         @PathVariable("id") int id,

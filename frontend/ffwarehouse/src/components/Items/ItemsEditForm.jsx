@@ -5,18 +5,16 @@ export default function ItemsEditForm({ handleNewItem }) {
   const url = "http://localhost:8080/items";
 
   function handleSubmit(event) {
-    // preventing page refresh
     // will grab all of the data from our form
     const data = new FormData(event.target);
     console.log(data);
-    // creating Warehouse object
     const newItem = {
       id: data.get("id"),
       name: data.get("name"),
       type: data.get("type"),
       cost: Number(data.get("cost")),
     };
-    // sending the post request
+    // sending the put request
     fetch(
       url +
         `/item/updateItem/${data.get("id")}/${data.get("name")}/${data.get(
@@ -32,15 +30,13 @@ export default function ItemsEditForm({ handleNewItem }) {
     )
       .then((data) => data.json())
       .then((returnedData) => {
-        // calling handleUpdateWarehouse from Warehouses.jsx to add the Warehouse to the table
         handleNewItem(returnedData);
-
         // resetting the form
         event.target.reset();
       })
       .catch((error) => console.error(error));
   }
-
+  //Form layout for the edit modal in the table
   return (
     <>
       <Form onSubmit={handleSubmit}>

@@ -14,15 +14,16 @@ export default function InventoriesTable({ tableData, handleNewInventory }) {
     location: "",
     max_items: "",
   });
-
+  //Gets the information from the Modal and populates the variables to be saved
   const handleEdit = (item) => {
     console.log(item);
     setEditedItem(item);
     setSelectedItem(item);
     setShowModal(true);
   };
-  const handleDelete = (item_id) => {
-    fetch(url + `/inventory/${item_id}`, {
+  //Recieves the inventory ID from the event on the delete button which is used to specify which inventory is used to delete
+  const handleDelete = (inventory_id) => {
+    fetch(url + `/inventory/${inventory_id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -43,6 +44,9 @@ export default function InventoriesTable({ tableData, handleNewInventory }) {
   const handleCancel = () => {
     setShowModal(false);
   };
+
+  //Displays the table as well as the modal for the edit button (defaulted to hidden)
+  //Modal sends the data to the Edit form
   return (
     <>
       <Table striped bordered className="bg-primary-lighter">

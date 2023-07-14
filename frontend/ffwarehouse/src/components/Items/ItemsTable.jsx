@@ -14,14 +14,14 @@ export default function WarehousesTable({ tableData, handleNewItem }) {
     location: "",
     max_items: "",
   });
-
+  //Gets the information from the Modal and populates the variables to be saved
   const handleEdit = (item) => {
     console.log(item);
     setEditedItem(item);
     setSelectedItem(item);
     setShowModal(true);
   };
-
+  //Recieves the inventory ID from the event on the delete button which is used to specify which inventory is used to delete
   const handleDelete = (item_id) => {
     fetch(url + `/item/${item_id}`, {
       method: "DELETE",
@@ -43,6 +43,8 @@ export default function WarehousesTable({ tableData, handleNewItem }) {
     setShowModal(false);
   };
 
+  //Displays the table as well as the modal for the edit button (defaulted to hidden)
+  //Modal sends the data to the Edit form
   return (
     <>
       <Table striped bordered className="bg-primary-lighter">
