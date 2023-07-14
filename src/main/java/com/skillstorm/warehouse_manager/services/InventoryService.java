@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.skillstorm.warehouse_manager.compositeKeys.InventoryId;
@@ -33,18 +34,35 @@ public class InventoryService {
 
     public void updateProductQuantity(int warehouseId, int itemId, int quantity) {
         InventoryId inventoryId = new InventoryId(warehouseId, itemId);
-        Inventory inventory = inventoryRepository.getById(inventoryId);
-        inventory.setQuantity(quantity);
-        inventoryRepository.save(inventory);
+        Optional<Inventory> optionalInventory = inventoryRepository.findById(inventoryId);
+    
+        if (optionalInventory.isPresent()) {
+            Inventory inventory = optionalInventory.get();
+            inventory.setQuantity(quantity);
+            inventoryRepository.save(inventory);
+        } else {
+            ResponseEntity.badRequest();
+        }
     }
 
-    public Inventory findInventoryById(int warehouseId, int itemId) {
+    public Optional<Inventory> findInventoryById(int warehouseId, int itemId) {
         InventoryId inventoryId = new InventoryId(warehouseId, itemId);
-        return inventoryRepository.getById(inventoryId);
+        Optional<Inventory> optionalInventory = inventoryRepository.findById(inventoryId);
+
+        if(optionalInventory.isPresent()){
+            return optionalInventory;
+        }
+        return null;
     }
     //Basic save functionality, still incomplete
     public Inventory saveInventory(Inventory inventory){
         return inventoryRepository.save(inventory);
+    }
+
+    public void createInventory(int warehouseId, int itemId, int quantity) {
+        InventoryId inventoryId = new InventoryId(warehouseId, itemId);
+        Inventory inventory = new Inventory(inventoryId, quantity);
+        inventoryRepository.save(inventory);
     }
 
 

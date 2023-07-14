@@ -1,6 +1,7 @@
 package com.skillstorm.warehouse_manager.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,9 +41,9 @@ public class InventoryController {
     }
     // Getting a single inventory by the id
     @GetMapping("/inventory/{warehouseId}{itemId}")
-    public ResponseEntity<Inventory> findInventoryById(@PathVariable int warehouseId, @PathVariable int itemId){
-        Inventory inventory = inventoryService.findInventoryById(warehouseId,itemId);
-        return new ResponseEntity<Inventory>(inventory,HttpStatus.OK);
+    public ResponseEntity<Optional<Inventory>> findInventoryById(@PathVariable int warehouseId, @PathVariable int itemId){
+        Optional<Inventory> inventory = inventoryService.findInventoryById(warehouseId,itemId);
+        return new ResponseEntity<Optional<Inventory>>(inventory,HttpStatus.OK);
     }
     // Default adding new inventory endpoint
     @PostMapping("/inventory")
@@ -52,6 +53,22 @@ public class InventoryController {
         return new ResponseEntity<Inventory>(newInventory, HttpStatus.CREATED);
     }
     
+    @PostMapping("/inventory/{warehouseId}/{itemId}")
+    public ResponseEntity<String> createOrUpdateInventory(
+            @PathVariable("warehouseId") int warehouseId,
+            @PathVariable("itemId") int itemId,
+            @RequestParam("quantity") int quantity) {
+            
+        if (inventoryService.productExists(warehouseId, itemId)) {
+            // Inventory exists, perform a PUT request to update the quantity
+            inventoryService.updateProductQuantity(warehouseId, itemId, quantity);
+            return ResponseEntity.ok("Quantity updated successfully");
+        } else {
+            // Inventory doesn't exist, create a new entry
+            inventoryService.createInventory(warehouseId, itemId, quantity);
+            return ResponseEntity.ok("Inventory created successfully");
+        }
+    }
     @PutMapping("/{warehouseId}/{itemId}")
     public ResponseEntity<String> updateQuantity(
             @PathVariable("warehouseId") int warehouseId,

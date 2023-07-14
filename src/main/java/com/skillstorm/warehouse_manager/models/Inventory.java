@@ -31,6 +31,11 @@ public class Inventory {
     public Inventory() {
     }
 
+    public Inventory(InventoryId id, int quantity) {
+        this.id = id;
+        this.quantity = quantity;
+    }
+
     public Inventory(InventoryId id, int quantity, Warehouse warehouse, Item item) {
         this.id = id;
         this.quantity = quantity;
