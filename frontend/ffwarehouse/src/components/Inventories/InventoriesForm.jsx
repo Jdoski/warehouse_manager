@@ -30,7 +30,8 @@ export default function InventoriesForm({ handleNewInventory }) {
       .then((returnedData) => {
         // calling handleNewInventory from Warehouses.jsx to add the Warehouse to the table
         handleNewInventory(returnedData);
-
+        //reloads the data to update the duplicate invetories quantity.
+        window.location.reload();
         // resetting the form
         event.target.reset();
       })
