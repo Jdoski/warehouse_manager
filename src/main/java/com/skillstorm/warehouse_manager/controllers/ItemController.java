@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skillstorm.warehouse_manager.compositeKeys.InventoryId;
 import com.skillstorm.warehouse_manager.models.Item;
-import com.skillstorm.warehouse_manager.models.Warehouse;
+import com.skillstorm.warehouse_manager.repositories.InventoryRepository;
 import com.skillstorm.warehouse_manager.repositories.ItemRepository;
+import com.skillstorm.warehouse_manager.services.InventoryService;
 import com.skillstorm.warehouse_manager.services.ItemService;
 
 
@@ -33,6 +35,8 @@ public class ItemController {
 
     @Autowired
     ItemRepository itemRepository;
+
+  
 
     @GetMapping
     public ResponseEntity<List<Item>> findAllItems(){
@@ -76,19 +80,11 @@ public class ItemController {
         }
         
         return ResponseEntity.status(HttpStatus.NO_CONTENT).contentType(MediaType.APPLICATION_JSON).body(itemService.findItemById(id));
-        
-    
     }
-
-
 
     @DeleteMapping("item/{id}")
-    public ResponseEntity<HttpStatus> deleteItem(@PathVariable("id") int id){
-        try{
-            itemRepository.deleteById(id);
-            return new ResponseEntity<HttpStatus>(HttpStatus.NO_CONTENT);
-        } catch (Exception e){
-            return new ResponseEntity<HttpStatus>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public void deleteItem(@PathVariable("id") int id){
+        itemRepository.deleteById(id); 
     }
+    
 }

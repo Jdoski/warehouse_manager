@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skillstorm.warehouse_manager.compositeKeys.InventoryId;
 import com.skillstorm.warehouse_manager.models.Inventory;
 import com.skillstorm.warehouse_manager.repositories.InventoryRepository;
 import com.skillstorm.warehouse_manager.services.InventoryService;
@@ -31,6 +32,8 @@ public class InventoryController {
 
     @Autowired
     InventoryRepository inventoryRepository;
+
+    InventoryId inventory;
 
     //Basic get mapping for default url to return all inventories
     @GetMapping
@@ -84,13 +87,14 @@ public class InventoryController {
         return ResponseEntity.ok("Quantity updated successfully");
     }
 
-    // @DeleteMapping("inventory/{warehouseId}{itemId}")
-    // public ResponseEntity<HttpStatus> deleteInventory(@PathVariable("warehouseId") int warehouseId, @PathVariable("itemId") int itemId){
-    //     try{
-    //         inventoryRepository.deleteById(warehouseId,itemId);
-    //         return new ResponseEntity<HttpStatus>(HttpStatus.NO_CONTENT);
-    //     } catch (Exception e){
-    //         return new ResponseEntity<HttpStatus>(HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }
-    // }
+    @DeleteMapping("inventory/{warehouse_id}{item_id}")
+    public ResponseEntity<HttpStatus> deleteInventory(@PathVariable("warehouse_id") int warehouse_id, @PathVariable("item_id") int item_id){
+        InventoryId inventoryId =  new InventoryId(warehouse_id,item_id);
+        try{
+            inventoryRepository.deleteById(inventoryId);
+            return new ResponseEntity<HttpStatus>(HttpStatus.NO_CONTENT);
+        } catch (Exception e){
+            return new ResponseEntity<HttpStatus>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

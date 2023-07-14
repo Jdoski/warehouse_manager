@@ -32,8 +32,6 @@ public class Item {
     @Column
     private int inventory_id;
 
-    // @ManyToOne
-    // @JoinColumn(name = "inventory_id")
     @OneToMany(targetEntity = Inventory.class, mappedBy = "warehouse")
     private Set<Inventory> inventory;
 

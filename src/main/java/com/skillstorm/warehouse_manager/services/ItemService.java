@@ -53,4 +53,8 @@ public class ItemService {
     public int updateItemCost(Item item, int cost){
         return itemRepository.updateItemCost(item.getId(), cost);
     }
+
+    public void deleteItem(Item item){
+        itemRepository.delete(item);
+    }
 }

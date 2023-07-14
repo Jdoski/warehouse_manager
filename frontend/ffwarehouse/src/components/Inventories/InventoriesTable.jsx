@@ -21,36 +21,25 @@ export default function InventoriesTable({ tableData, handleNewInventory }) {
     setSelectedItem(item);
     setShowModal(true);
   };
-
-  function handleSave(event) {
-    const data = new FormData(event.target);
-    const newItem = {
-      id: data.get("id"),
-      name: data.get("name"),
-      type: data.get("type"),
-      cost: Number(data.get("cost")),
-    };
-    // sending the post request
-    fetch(url + "/warehouse", {
-      method: "POST",
+  const handleDelete = (item_id) => {
+    fetch(url + `/inventory/${item_id}`, {
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newItem),
     })
-      .then((data) => data.json())
-      .then((returnedData) => {
-        // calling handleNewWarehouse from Warehouses.jsx to add the Warehouse to the table
-        handleNewInventory(returnedData);
-
-        // resetting the form
-        event.target.reset();
+      .then((response) => {
+        if (response.ok) {
+          window.location.reload();
+        } else {
+          // Error occurred during deletion
+          // Handle the error appropriately
+        }
       })
-      .catch((error) => console.error(error));
-
-    setShowModal(false);
-  }
-
+      .catch((error) => {
+        // Handle network or other errors
+      });
+  };
   const handleCancel = () => {
     setShowModal(false);
   };
@@ -78,7 +67,10 @@ export default function InventoriesTable({ tableData, handleNewInventory }) {
                   >
                     Edit
                   </Button>
-                  <Button variant="danger" onClick={() => onDelete(item.id)}>
+                  <Button
+                    variant="danger"
+                    onClick={() => handleDelete(inventory.id)}
+                  >
                     Delete
                   </Button>
                 </td>

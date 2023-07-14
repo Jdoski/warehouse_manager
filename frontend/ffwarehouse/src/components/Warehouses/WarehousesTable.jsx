@@ -48,6 +48,25 @@ export default function WarehousesTable({ tableData, handleNewWarehouse }) {
 
     setShowModal(false);
   }
+  const handleDelete = (item_id) => {
+    fetch(url + `/warehouse/${item_id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          window.location.reload();
+        } else {
+          // Error occurred during deletion
+          // Handle the error appropriately
+        }
+      })
+      .catch((error) => {
+        // Handle network or other errors
+      });
+  };
 
   const handleCancel = () => {
     setShowModal(false);
@@ -77,7 +96,10 @@ export default function WarehousesTable({ tableData, handleNewWarehouse }) {
                   >
                     Edit
                   </Button>
-                  <Button variant="danger" onClick={() => onDelete(item.id)}>
+                  <Button
+                    variant="danger"
+                    onClick={() => handleDelete(warehouse.id)}
+                  >
                     Delete
                   </Button>
                 </td>
