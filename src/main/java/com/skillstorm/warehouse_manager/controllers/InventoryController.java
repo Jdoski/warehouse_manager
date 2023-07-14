@@ -69,11 +69,11 @@ public class InventoryController {
             return ResponseEntity.ok("Inventory created successfully");
         }
     }
-    @PutMapping("/{warehouse_id}/{item_Id}")
+    @PutMapping("/inventory/updateInventory/{warehouse_id}/{item_id}/{quantity}")
     public ResponseEntity<String> updateQuantity(
             @PathVariable("warehouse_id") int warehouse_id,
             @PathVariable("item_id") int item_id,
-            @RequestParam("quantity") int quantity) {
+            @PathVariable("quantity") int quantity) {
             
         if (!inventoryService.productExists(warehouse_id, item_id)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
